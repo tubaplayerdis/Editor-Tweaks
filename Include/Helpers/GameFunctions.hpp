@@ -43,7 +43,7 @@ inline TRet CallGameFunction(unsigned long long addr, TArgs... args)
 }
 
 /// <summary>
-/// Call an internal game function based on its index in a vtable.
+/// Call an internal game function based on its index in a vtable. If calling inside a hook macro surround with parethasees.
 /// </summary>
 ///<typeparam name="TRet">Return type of the function</typeparam>
 /// <typeparam name="...TArgs">Argument types of the function</typeparam>
@@ -55,10 +55,12 @@ template<typename TRet, typename... TArgs>
 inline TRet CallVTableFunction(int index ,void* object, TArgs... args)
 {
     using FunctionFn = TRet(__fastcall*)(void*, TArgs...);
-    void** vtable = *(void***)object;
-    FunctionFn FunctionFunc = reinterpret_cast<FunctionFn>(index/sizeof(void*));
+    void** vtable = *reinterpret_cast<void***>(object);
+    FunctionFn FunctionFunc = reinterpret_cast<FunctionFn>(vtable[index]);
     return FunctionFunc(object, std::forward<TArgs>(args)...);
 }
+
+// reinterpret_cast<sig>(*(void***)obj[index/sizeof(void*)])(__VA_ARGS__)
 
 /// <summary>
 /// Gets the member of a object given an offset

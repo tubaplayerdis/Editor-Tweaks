@@ -31,11 +31,11 @@ void main_loop()
 
     //Initialize Hooks
     HOOK_INIT(H_GetMaxBrickSize);
-    HOOK_INIT(H_OnSelectionChanged);
+    HOOK_INIT(H_InitializeProperty);
 
     //Enable Hooks
     HOOK_ENABLE(H_GetMaxBrickSize);
-    HOOK_ENABLE(H_OnSelectionChanged);
+    HOOK_ENABLE(H_InitializeProperty);
 
     while (true) {
 
@@ -48,6 +48,6 @@ void main_loop()
 
     //Destroy Hooks
     HOOK_DESTROY(H_GetMaxBrickSize);
-    HOOK_DESTROY(H_OnSelectionChanged);
+    HOOK_DESTROY(H_InitializeProperty);
     //Run Cleanup
 }
