@@ -6,16 +6,18 @@
 #include <string>
 
 #define F_GET_MAX_BRICK_SIZE (BASE + 0x0C3CA00)
-#define F_INITIALIZE_PROPERTY (BASE + 0x0DCB870)
+#define F_UPDATE_PROPERTIES_PANEL (BASE + 0x0DA3040)
 #define F_GET_VALUE_RANGE (BASE + 0x0BF3B80)
 #define F_GET_SELECTED_PROPERTY_CONTAINER (BASE + 0x0DBFC70)
-#define M_CURRENT_EDITOR_MODE (0x26C)
+#define G_GLOBAL_GEAR_RATIO BASE + 0x42EB200
+#define G_GLOBAL_LIGHT_BRIGHTNESS BASE + 0x42EB088 //Do the same stuff to light brightness as gear ratio
 
 struct FSharedRef
 {
     void* obj;
-    void* refenceController;
+    uint8_t refenceController[0x8];
 };
+static_assert(sizeof(FSharedRef) == 0x10);
 
 struct FNumericBrickPropertyValue
 {
@@ -48,6 +50,15 @@ struct FBrickPropAttribute //const TBrickPropAttribute<FNumericBrickPropertyRang
 };
 static_assert(sizeof(FBrickPropAttribute) == 0x38);
 
+struct FNumericBrickPropertyBase
+{
+    uint8_t pad[0x18];
+    uint8_t pad1[0x18];
+    FBrickPropAttribute Range;
+    uint8_t pad2[0x18];
+};
+static_assert(sizeof(FNumericBrickPropertyBase) == 0x80);
+
 HOOK(GetMaxBrickSize, F_GET_MAX_BRICK_SIZE, [](SDK::UScalableBrick *This, SDK::FVector* RetVal) -> SDK::FVector*
 {
     RetVal->X = FLT_MAX;
@@ -56,25 +67,16 @@ HOOK(GetMaxBrickSize, F_GET_MAX_BRICK_SIZE, [](SDK::UScalableBrick *This, SDK::F
     return RetVal;
 }, SDK::FVector*(SDK::UScalableBrick*, SDK::FVector*))
 
-HOOK(InitializeProperty, F_INITIALIZE_PROPERTY, [](SDK::UPropertyContainerWidget* This, FSharedRef* InProps, SDK::EOrientation Orientation) -> void
+HOOK(UpdatePropertiesPanel, F_UPDATE_PROPERTIES_PANEL, [](SDK::UBrickEditorWidget* This) -> void
 {
-    //InProps->obj is a FBrickPropertyEditInfo
-    auto PropRef = GetMember<FSharedRef>(InProps->obj, 0x0);
-    auto DisplayName = GetMember<SDK::FText>(InProps->obj, 0x40);
-    if (DisplayName.ToString() == "Brightness")
+    auto GlobalGearRatioAddr = reinterpret_cast<FSharedRef*>(G_GLOBAL_GEAR_RATIO);
+    if (GlobalGearRatioAddr->obj)
     {
-        void* BrickPropertyNumeric = PropRef.obj;//This is a FNumericBrickProperty which inherits FNumericBrickPropertyBase
-        void* PropertyContainer = CALL_GAME_FUNCTION(F_GET_SELECTED_PROPERTY_CONTAINER, void*(*)(void*, void*))
-        //auto BrickProperty = GetMember<FBrickPropAttribute>(BrickPropertyNumeric, 0x30);
-        //BrickProperty.opt.Value.Max.Data.X = 2.0f;
-        //BrickProperty.opt.Value.Max.Data.Y = 2.0f;
-        //BrickProperty.opt.Value.Max.Data.Z = 2.0f;
-        //BrickProperty.opt.Value.Min.Data.X;
-
+        auto GlobalGearRatio = reinterpret_cast<FNumericBrickPropertyBase*>(GlobalGearRatioAddr->obj);
+        GlobalGearRatio->Range.opt.Value.Max.Data.X = 20;
+        GlobalGearRatio->Range.opt.Value.Max.Data.Y = 20;
+        GlobalGearRatio->Range.opt.Value.Max.Data.Z = 20;
     }
-    void* BrickProperty = PropRef.obj;
-    SDK::FName name;
-    (CallVTableFunction<SDK::FName*, SDK::FName*>(0, BrickProperty, &name));
-    std::cout << DisplayName.ToString() << ": " << name.ToString() << "\n";
-    HOOK_CALL_ORIGINAL(H_InitializeProperty, This, InProps, Orientation);
-}, void(SDK::UPropertyContainerWidget*, FSharedRef*, SDK::EOrientation))
+
+    HOOK_CALL_ORIGINAL(H_UpdatePropertiesPanel, This);
+}, void(SDK::UBrickEditorWidget*))
