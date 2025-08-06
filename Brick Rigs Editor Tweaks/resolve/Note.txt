@@ -1,0 +1,2 @@
+This directory is used to resolve linker errors stemming from the SDK to MinHook relating to that the cpp file needs to be in the project to linked.
+Add links to files in here.

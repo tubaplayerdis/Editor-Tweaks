@@ -109,6 +109,9 @@
       <PreprocessorDefinitions>_DEBUG;CPPDYNAMICLIBRARYTEMPLATE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp23</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(_ZVcpkgCurrentInstalledDir)include;$(SolutionDir)Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -145,6 +148,9 @@
       <PreprocessorDefinitions>NDEBUG;CPPDYNAMICLIBRARYTEMPLATE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp23</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(_ZVcpkgCurrentInstalledDir)include;$(SolutionDir)Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -154,7 +160,446 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Include\buffer.c">
+      <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <Optimization>Disabled</Optimization>
+      <SupportJustMyCode>true</SupportJustMyCode>
+      <AssemblerOutput>NoListing</AssemblerOutput>
+      <AssemblerListingLocation>x64\Debug\</AssemblerListingLocation>
+      <UndefineAllPreprocessorDefinitions>false</UndefineAllPreprocessorDefinitions>
+      <BrowseInformation>false</BrowseInformation>
+      <BrowseInformationFile>x64\Debug\</BrowseInformationFile>
+      <CompileAs>Default</CompileAs>
+      <UseDynamicDebugging>false</UseDynamicDebugging>
+      <ConformanceMode>true</ConformanceMode>
+      <DiagnosticsFormat>Column</DiagnosticsFormat>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <ErrorReporting>Prompt</ErrorReporting>
+      <ExpandAttributedSource>false</ExpandAttributedSource>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <EnableASAN>false</EnableASAN>
+      <EnableFuzzer>false</EnableFuzzer>
+      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <EnableVectorLength>NotSet</EnableVectorLength>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <GenerateModuleDependencies>false</GenerateModuleDependencies>
+      <GenerateSourceDependencies>false</GenerateSourceDependencies>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
+      <LanguageStandard>stdcpp23</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ModuleDependenciesFile>x64\Debug\</ModuleDependenciesFile>
+      <ModuleOutputFile>x64\Debug\</ModuleOutputFile>
+      <OmitDefaultLibName>false</OmitDefaultLibName>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <ObjectFileName>x64\Debug\</ObjectFileName>
+      <CallingConvention>Cdecl</CallingConvention>
+      <ProgramDataBaseFileName>x64\Debug\vc143.pdb</ProgramDataBaseFileName>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>x64\Debug\Brick Rigs Editor Tweaks.pch</PrecompiledHeaderOutputFile>
+      <PreprocessToFile>false</PreprocessToFile>
+      <PreprocessKeepComments>false</PreprocessKeepComments>
+      <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+      <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+      <ShowIncludes>false</ShowIncludes>
+      <SourceDependenciesFile>x64\Debug\</SourceDependenciesFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <SpectreMitigation>false</SpectreMitigation>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <TrackerLogDirectory>x64\Debug\Brick Ri.3F3661AF.tlog\</TrackerLogDirectory>
+      <TranslateIncludes>false</TranslateIncludes>
+      <MinimalRebuildFromTracking>true</MinimalRebuildFromTracking>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <UseFullPaths>true</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <XMLDocumentationFileName>x64\Debug\</XMLDocumentationFileName>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <IntelJCCErratum>false</IntelJCCErratum>
+      <BuildStlModules>false</BuildStlModules>
+      <TreatAngleIncludeAsExternal>false</TreatAngleIncludeAsExternal>
+      <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
+      <TreatExternalTemplatesAsInternal>true</TreatExternalTemplatesAsInternal>
+      <DisableAnalyzeExternal>false</DisableAnalyzeExternal>
+      <PreprocessorDefinitions>_DEBUG;CPPDYNAMICLIBRARYTEMPLATE_EXPORTS;_WINDOWS;_USRDLL;_WINDLL;_UNICODE;UNICODE;</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>;C:\dev\VCPKG\vcpkg\installed\x64-windows\include;C:\Users\aaron\RiderProjects\Brick Rigs Editor Tweaks\Include;C:\dev\VCPKG\vcpkg\installed\x64-windows\include</AdditionalIncludeDirectories>
+      <LinkCompiled>true</LinkCompiled>
+    </ClCompile>
+    <ClCompile Include="..\Include\hde\hde32.c" />
+    <ClCompile Include="..\Include\hde\hde64.c" />
+    <ClCompile Include="..\Include\hook.c">
+      <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <Optimization>Disabled</Optimization>
+      <SupportJustMyCode>true</SupportJustMyCode>
+      <AssemblerOutput>NoListing</AssemblerOutput>
+      <AssemblerListingLocation>x64\Debug\</AssemblerListingLocation>
+      <UndefineAllPreprocessorDefinitions>false</UndefineAllPreprocessorDefinitions>
+      <BrowseInformation>false</BrowseInformation>
+      <BrowseInformationFile>x64\Debug\</BrowseInformationFile>
+      <CompileAs>Default</CompileAs>
+      <UseDynamicDebugging>false</UseDynamicDebugging>
+      <ConformanceMode>true</ConformanceMode>
+      <DiagnosticsFormat>Column</DiagnosticsFormat>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <ErrorReporting>Prompt</ErrorReporting>
+      <ExpandAttributedSource>false</ExpandAttributedSource>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <EnableASAN>false</EnableASAN>
+      <EnableFuzzer>false</EnableFuzzer>
+      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <EnableVectorLength>NotSet</EnableVectorLength>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <GenerateModuleDependencies>false</GenerateModuleDependencies>
+      <GenerateSourceDependencies>false</GenerateSourceDependencies>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
+      <LanguageStandard>stdcpp23</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ModuleDependenciesFile>x64\Debug\</ModuleDependenciesFile>
+      <ModuleOutputFile>x64\Debug\</ModuleOutputFile>
+      <OmitDefaultLibName>false</OmitDefaultLibName>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <ObjectFileName>x64\Debug\</ObjectFileName>
+      <CallingConvention>Cdecl</CallingConvention>
+      <ProgramDataBaseFileName>x64\Debug\vc143.pdb</ProgramDataBaseFileName>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>x64\Debug\Brick Rigs Editor Tweaks.pch</PrecompiledHeaderOutputFile>
+      <PreprocessToFile>false</PreprocessToFile>
+      <PreprocessKeepComments>false</PreprocessKeepComments>
+      <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+      <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+      <ShowIncludes>false</ShowIncludes>
+      <SourceDependenciesFile>x64\Debug\</SourceDependenciesFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <SpectreMitigation>false</SpectreMitigation>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <TrackerLogDirectory>x64\Debug\Brick Ri.3F3661AF.tlog\</TrackerLogDirectory>
+      <TranslateIncludes>false</TranslateIncludes>
+      <MinimalRebuildFromTracking>true</MinimalRebuildFromTracking>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <UseFullPaths>true</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <XMLDocumentationFileName>x64\Debug\</XMLDocumentationFileName>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <IntelJCCErratum>false</IntelJCCErratum>
+      <BuildStlModules>false</BuildStlModules>
+      <TreatAngleIncludeAsExternal>false</TreatAngleIncludeAsExternal>
+      <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
+      <TreatExternalTemplatesAsInternal>true</TreatExternalTemplatesAsInternal>
+      <DisableAnalyzeExternal>false</DisableAnalyzeExternal>
+      <PreprocessorDefinitions>_DEBUG;CPPDYNAMICLIBRARYTEMPLATE_EXPORTS;_WINDOWS;_USRDLL;_WINDLL;_UNICODE;UNICODE;</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>;C:\dev\VCPKG\vcpkg\installed\x64-windows\include;C:\Users\aaron\RiderProjects\Brick Rigs Editor Tweaks\Include;C:\dev\VCPKG\vcpkg\installed\x64-windows\include</AdditionalIncludeDirectories>
+      <LinkCompiled>true</LinkCompiled>
+    </ClCompile>
+    <ClCompile Include="..\Include\SDK\ABP_Character_Fluppism_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\ABP_Character_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\ABP_Character_RC_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\ABP_Character_RC_Parent_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\ABP_Character_Watch_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\ABP_RC_Vehicle_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\ABP_Zombie_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\AIModule_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\AnimationSharing_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\AnimGraphRuntime_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\ApexDestruction_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\AssetRegistry_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\AssetTags_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\AudioMixer_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\AugmentedReality_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\AutomationUtils_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\Basic.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_Blender_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_BrickCharacter_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_Brick_8x8x1s_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_CarElevator_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_CarPark_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_Construction_Building_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_DragStrip_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_Dumpster_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_Fluppism_Sequence_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_FuelTank_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_Hospital_Builder_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_House_Builder_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_Industrial_Builder_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_Kick_Sequence_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_LoadoutContainer_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_MenuFunctionLibrary_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_PowerPlant_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_RC_Sequence_2_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_RC_Sequence_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_Shredder_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_Sign_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_SkyScraper_Builder_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_Staircase_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_UIFunctionLibrary_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_UIStyle_Blue_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_UIStyle_Cyan_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_UIStyle_Default_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_UIStyle_Gray_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_UIStyle_Orange_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_UIStyle_Violet_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_UIStyle_White_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BP_ZombieAIController_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BrickRigs_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BTS_ZombieFindTarget_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\BTT_ZombieAttack_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\CableComponent_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\CinematicCamera_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\ClothingSystemRuntimeInterface_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\ClothingSystemRuntimeNv_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\CoreUObject_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\DLSSBlueprint_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\EngineSettings_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\Engine_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\EyeTracker_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\FluMoveSync_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\FluUGC_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\Foliage_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\GameplayCameras_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\GameplayTags_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\GameplayTasks_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\HeadMountedDisplay_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\ImageWriteQueue_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\InteractiveToolsFramework_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\Landscape_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\LevelSequence_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\MediaAssets_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\MeshDescription_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\MovieSceneCapture_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\MovieSceneTracks_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\MovieScene_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\MRMesh_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\NavigationSystem_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\NiagaraAnimNotifies_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\Niagara_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\OnlineSubsystemUtils_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\OnlineSubsystem_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\ProceduralMeshComponent_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\StaticMeshDescription_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\TemplateSequence_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\TimeManagement_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\UMG_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\Water_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_AdminMenu_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_BindKeyPopup_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_BrickComboBoxItemContainer_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_BrickComboBoxItem_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_BrickComboBox_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_BrickEditorMirrorAxis_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_BrickEditorObjectProperty_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_BrickEditor_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_BrickSliderReadOnly_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_BrickSlider_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_BrickTextBox_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_CameraBrick_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_CapturePointIcon_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_ChatMessage_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_Chat_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_ColorProperty_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_ConfirmResolutionPopup_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_ConnectorSpacingAxis_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_ConnectorSpacingProperty_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_ContextMenu_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_ControlHint_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_Crosshair_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_CurrentItem_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_DashboardIcon_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_DashboardSlider_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_Dashboard_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_FlashSequenceItemWidget_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_GameLogo_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_GameOverlay_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_GarageIcon_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_HealthBar_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_HostGame_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_HUDContainer_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_HUDIconContainer_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_HUDNotification_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_HurtMarker_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_InputActionCategory_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_InputActionList_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_InputAction_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_InputChord_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_InputHelp_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_InputKeySpacer_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_InputKey_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_InputMappingKey_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_InputMappingProperty_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_InputMappings_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_InteractionOption_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_Interaction_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_IntroSequence_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_InventoryContainer_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_InventoryPopup_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_InventorySlot_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_JoinSessionPopup_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_KickedPlayer_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_KickPlayerPopup_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_LoadingScreen_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_LoadoutContainerIcon_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_MapCrosshair_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_MapPopup_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_Map_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_MatchEnd_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_MatchMenu_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_MatchState_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_MatchTimer_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_MenuButton_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_Menu_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_NetworkErrorPopup_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_NumericProperty_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_PagedListHeaderField_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_PagedListHeader_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_PagedList_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_PageSelector_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_PingIndicator_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_PlacableObject_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_PlayerIcon_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_PlayersMenu_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_Player_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_PopupContainer_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_PropertiesPanel_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_PropertyCategory_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_PropertyContainerButton_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_PropertyContainer_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_RandomSpawnIcon_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_RestrictedArea_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_ReuploadPopup_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_ScoreboardPlayer_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_ScoreboardTeam_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_ServerBrowser_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_Server_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_SocialMediaLink_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_SpawnPointContainer_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_SpawnScreen_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_StructProperty_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_TargetMarkerIcon_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_TeamBaseIcon_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_TeamScore_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_TimespanProperty_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_Tooltip_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_UGCBrowser_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_UGCItem_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_UGCMetaDataPopup_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_UGCProperty_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_UGCTaskPopup_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_UnsavedChangesPopup_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_UserIdProperty_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_VehicleIcon_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_VideoSettings_functions.cpp" />
+    <ClCompile Include="..\Include\SDK\WBP_WindowManager_functions.cpp" />
+    <ClCompile Include="..\Include\trampoline.c">
+      <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <Optimization>Disabled</Optimization>
+      <SupportJustMyCode>true</SupportJustMyCode>
+      <AssemblerOutput>NoListing</AssemblerOutput>
+      <AssemblerListingLocation>x64\Debug\</AssemblerListingLocation>
+      <UndefineAllPreprocessorDefinitions>false</UndefineAllPreprocessorDefinitions>
+      <BrowseInformation>false</BrowseInformation>
+      <BrowseInformationFile>x64\Debug\</BrowseInformationFile>
+      <CompileAs>Default</CompileAs>
+      <UseDynamicDebugging>false</UseDynamicDebugging>
+      <ConformanceMode>true</ConformanceMode>
+      <DiagnosticsFormat>Column</DiagnosticsFormat>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <ErrorReporting>Prompt</ErrorReporting>
+      <ExpandAttributedSource>false</ExpandAttributedSource>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <EnableASAN>false</EnableASAN>
+      <EnableFuzzer>false</EnableFuzzer>
+      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <EnableVectorLength>NotSet</EnableVectorLength>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <GenerateModuleDependencies>false</GenerateModuleDependencies>
+      <GenerateSourceDependencies>false</GenerateSourceDependencies>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
+      <LanguageStandard>stdcpp23</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ModuleDependenciesFile>x64\Debug\</ModuleDependenciesFile>
+      <ModuleOutputFile>x64\Debug\</ModuleOutputFile>
+      <OmitDefaultLibName>false</OmitDefaultLibName>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <ObjectFileName>x64\Debug\</ObjectFileName>
+      <CallingConvention>Cdecl</CallingConvention>
+      <ProgramDataBaseFileName>x64\Debug\vc143.pdb</ProgramDataBaseFileName>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>x64\Debug\Brick Rigs Editor Tweaks.pch</PrecompiledHeaderOutputFile>
+      <PreprocessToFile>false</PreprocessToFile>
+      <PreprocessKeepComments>false</PreprocessKeepComments>
+      <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+      <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+      <ShowIncludes>false</ShowIncludes>
+      <SourceDependenciesFile>x64\Debug\</SourceDependenciesFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <SpectreMitigation>false</SpectreMitigation>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <TrackerLogDirectory>x64\Debug\Brick Ri.3F3661AF.tlog\</TrackerLogDirectory>
+      <TranslateIncludes>false</TranslateIncludes>
+      <MinimalRebuildFromTracking>true</MinimalRebuildFromTracking>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <UseFullPaths>true</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <XMLDocumentationFileName>x64\Debug\</XMLDocumentationFileName>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <IntelJCCErratum>false</IntelJCCErratum>
+      <BuildStlModules>false</BuildStlModules>
+      <TreatAngleIncludeAsExternal>false</TreatAngleIncludeAsExternal>
+      <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
+      <TreatExternalTemplatesAsInternal>true</TreatExternalTemplatesAsInternal>
+      <DisableAnalyzeExternal>false</DisableAnalyzeExternal>
+      <PreprocessorDefinitions>_DEBUG;CPPDYNAMICLIBRARYTEMPLATE_EXPORTS;_WINDOWS;_USRDLL;_WINDLL;_UNICODE;UNICODE;</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>;C:\dev\VCPKG\vcpkg\installed\x64-windows\include;C:\Users\aaron\RiderProjects\Brick Rigs Editor Tweaks\Include;C:\dev\VCPKG\vcpkg\installed\x64-windows\include</AdditionalIncludeDirectories>
+      <LinkCompiled>true</LinkCompiled>
+    </ClCompile>
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="source\main\Main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Include\hooking\Hook.h" />
+    <ClInclude Include="Include\main\Main.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Include\hooking\BrickHooks.h" />
+    <Content Include="resolve\Note.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -72,7 +72,6 @@ T& GetMember(void* base, std::size_t offset) {
     return *reinterpret_cast<T*>(reinterpret_cast<std::uint8_t*>(base) + offset);
 }
 
-
 /// <summary>
 /// Find a function address.
 /// </summary>
