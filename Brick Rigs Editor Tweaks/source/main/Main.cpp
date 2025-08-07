@@ -1,6 +1,7 @@
 #include "../../Include/main/Main.h"
 #include <windows.h>
 #include "../../Include/hooking/BrickHooks.h"
+#include "../../Include/hooking/DataHooks.h"
 
 namespace
 {
@@ -30,12 +31,16 @@ void main_loop()
     //Run initialization
 
     //Initialize Hooks
-    HOOK_INIT(H_GetMaxBrickSize);
-    HOOK_INIT(H_UpdatePropertiesPanel);
+    HOOK_INIT(GetMaxBrickSize());
+    HOOK_INIT(UpdatePropertiesPanel());
+    HOOK_INIT(UMotorBrick_ReflectProperties());
+    HOOK_INIT(ULightBrick_ReflectProperties());
 
     //Enable Hooks
-    HOOK_ENABLE(H_GetMaxBrickSize);
-    HOOK_ENABLE(H_UpdatePropertiesPanel);
+    HOOK_ENABLE(GetMaxBrickSize());
+    HOOK_ENABLE(UpdatePropertiesPanel());
+    HOOK_ENABLE(UMotorBrick_ReflectProperties());
+    HOOK_ENABLE(ULightBrick_ReflectProperties());
 
     while (true) {
 
@@ -47,7 +52,9 @@ void main_loop()
     }
 
     //Destroy Hooks
-    HOOK_DESTROY(H_GetMaxBrickSize);
-    HOOK_DESTROY(H_UpdatePropertiesPanel);
+    HOOK_DESTROY(GetMaxBrickSize());
+    HOOK_DESTROY(UpdatePropertiesPanel());
+    HOOK_DESTROY(UMotorBrick_ReflectProperties());
+    HOOK_DESTROY(ULightBrick_ReflectProperties());
     //Run Cleanup
 }

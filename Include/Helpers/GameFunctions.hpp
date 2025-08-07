@@ -70,8 +70,23 @@ inline TRet CallVTableFunction(int index ,void* object, TArgs... args)
 /// <param name="offset">offset of the member</param>
 /// <returns>T</returns>
 template<typename T>
-T& GetMember(void* base, std::size_t offset) {
+T& GetMember(void* base, std::size_t offset)
+{
     return *reinterpret_cast<T*>(reinterpret_cast<std::uint8_t*>(base) + offset);
+}
+
+/// <summary>
+/// Sets the member of a object given an offset
+/// </summary>
+/// <typeparam name="T">member type</typeparam>
+/// <param name="base">Address of the object.</param>
+/// <param name="offset">offset of the member</param>
+/// <param name="value">value to set the member</param>
+/// <returns>T</returns>
+template<typename T>
+void SetMember(void* base, std::size_t offset, const T& value)
+{
+    *reinterpret_cast<T*>(reinterpret_cast<std::uint8_t*>(base) + offset) = value;
 }
 
 /// <summary>

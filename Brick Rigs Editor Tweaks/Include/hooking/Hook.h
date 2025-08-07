@@ -25,13 +25,14 @@
 
 //Defines a hooking objects and it parameters. Does NOT register the hook with MinHook
 #define HOOK(name, addr, lamb, sig) \
-typedef Hook<sig> name; \
-inline name* H_##name = new name(addr, lamb, false); \
+Hook<sig>* name##(); \
+inline Hook<sig>* H_##name = new Hook<sig>(addr, lamb, false); \
+inline Hook<sig>* name##() { return H_##name; } \
 
 //Registers the hook with MinHook
 #define HOOK_INIT(ptr) ptr->Create()
 //Destroy the hook object to prevent memory leeks
-#define HOOK_DESTROY(ptr) ptr->Disable(); delete ptr; ptr = nullptr
+#define HOOK_DESTROY(ptr) ptr->Disable(); DestroyHookInternal(ptr)
 #define HOOK_ENABLE(ptr) ptr->Enable()
 #define HOOK_DISABLE(ptr) ptr->Disable()
 #define HOOK_IS_INIT(ptr) ptr->IsInitialized()
@@ -359,4 +360,11 @@ template<typename Ret, typename ...Args>
 inline bool Hook<Ret(Args...)>::IsEnabled()
 {
 	return enabled;
+}
+
+inline void DestroyHookInternal(void* hook)
+{
+	if (!hook) return;
+	delete hook;
+	hook = nullptr;
 }
