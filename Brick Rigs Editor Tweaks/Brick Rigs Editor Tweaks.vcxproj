@@ -594,8 +594,10 @@
     <ClCompile Include="source\main\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\hooking\DataHooks.h" />
     <ClInclude Include="Include\hooking\Hook.h" />
     <ClInclude Include="Include\main\Main.h" />
+    <ClInclude Include="Include\TypeReconstruct.h" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Include\hooking\BrickHooks.h" />
