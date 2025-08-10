@@ -35,14 +35,14 @@ void main_loop()
     HOOK_INIT(UpdatePropertiesPanel());
     HOOK_INIT(UMotorBrick_ReflectProperties());
     HOOK_INIT(ULightBrick_ReflectProperties());
-    HOOK_INIT(UThrusterBrick_RelfectProperties());
+    HOOK_INIT(GetThrustForceRange());
 
     //Enable Hooks
     HOOK_ENABLE(GetMaxBrickSize());
     HOOK_ENABLE(UpdatePropertiesPanel());
     HOOK_ENABLE(UMotorBrick_ReflectProperties());
     HOOK_ENABLE(ULightBrick_ReflectProperties());
-    HOOK_ENABLE(UThrusterBrick_RelfectProperties());
+    HOOK_ENABLE(GetThrustForceRange());
 
     while (true) {
 
@@ -58,6 +58,6 @@ void main_loop()
     HOOK_DESTROY(UpdatePropertiesPanel());
     HOOK_DESTROY(UMotorBrick_ReflectProperties());
     HOOK_DESTROY(ULightBrick_ReflectProperties());
-    HOOK_DESTROY(UThrusterBrick_RelfectProperties());
+    HOOK_DESTROY(GetThrustForceRange());
     //Run Cleanup
 }

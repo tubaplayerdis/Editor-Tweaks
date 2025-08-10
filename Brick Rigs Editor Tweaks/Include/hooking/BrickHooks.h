@@ -10,6 +10,8 @@
 #define F_UPDATE_PROPERTIES_PANEL (BASE + 0x0DA3040)
 #define F_GET_VALUE_RANGE (BASE + 0x0BF3B80)
 #define F_GET_SELECTED_PROPERTY_CONTAINER (BASE + 0x0DBFC70)
+#define F_GET_THRUST_FORCE_RANGE (BASE + 0x0C41990)
+#define F_GET_STATIC_INFO_THRUSTER_BRICK (BASE + 0x0C1EE00)
 
 HOOK(GetMaxBrickSize, F_GET_MAX_BRICK_SIZE, [](SDK::UScalableBrick *This, SDK::FVector* RetVal) -> SDK::FVector*
 {
@@ -24,3 +26,10 @@ HOOK(UpdatePropertiesPanel, F_UPDATE_PROPERTIES_PANEL, [](SDK::UBrickEditorWidge
     //Call whatever
     HOOK_CALL_ORIGINAL(UpdatePropertiesPanel(), This);
 }, void(SDK::UBrickEditorWidget*))
+
+HOOK(GetThrustForceRange, F_GET_THRUST_FORCE_RANGE, [](SDK::UThrusterBrick* This, void* Params) -> void*
+{
+    SDK::UThrusterBrickStaticInfo* StaticInfo = CALL_GAME_FUNCTION(F_GET_STATIC_INFO_THRUSTER_BRICK, SDK::UThrusterBrickStaticInfo*(*)(SDK::UThrusterBrick*), This);
+    StaticInfo->MaxInputScale = 1000.0f;//Normally 25
+    return HOOK_CALL_ORIGINAL(GetThrustForceRange(), This, Params);
+}, void*(SDK::UThrusterBrick*, void*))
