@@ -8,11 +8,11 @@ Built using [BR-SDK](https://github.com/tubaplayerdis/BR-SDK)
 
 ### Feature List (When Complete)
 
- - No Size Limits on scalables
- - No Size limit in the editor
- - No Brightness Limits
- - No Engine speed reduction limits
- - Modify pattern rotation and origin?
- - Slower camera speed
- - Change color picking to HSV
- - Extra search functions?
+ - No Size Limits on scalables (Completed)
+ - No Size limit in the editor (Completed)
+ - No Brightness Limits on lights (Completed)
+ - No Engine speed reduction limits (Completed)
+ - Modify pattern rotation and origin (In progress)
+ - Slower camera speed (Completed)
+ - Change color picking to HSV (Not started)
+ - Extra search functions (Not started)
