@@ -38,9 +38,12 @@ HOOK(GetThrustForceRange, F_GET_THRUST_FORCE_RANGE, [](SDK::UThrusterBrick* This
 HOOK(GetBrickEditorStaticInfo, F_GET_BRICK_EDITOR_STATIC_INFO, [](SDK::ABrickEditor* This) -> SDK::UBrickEditorStaticInfo*
 {
     SDK::UBrickEditorStaticInfo* StaticInfo = HOOK_CALL_ORIGINAL(GetBrickEditorStaticInfo(), This);
-    StaticInfo->EditorBounds.X = FLT_MAX;
-    StaticInfo->EditorBounds.Y = FLT_MAX;
-    StaticInfo->EditorBounds.Z = FLT_MAX;
-    //100000 normally. Expand to floating point limit.
+    StaticInfo->EditorBounds.X = 1000000; //100000 normally. Expanding to floating point limit causes Brick to be unable to be selected.
+    StaticInfo->EditorBounds.Y = 1000000;
+    StaticInfo->EditorBounds.Z = 1000000;
+    StaticInfo->CameraSpeedParams.SpeedRange.Min = 10.0f; //300
+    StaticInfo->CameraSpeedParams.SpeedRange.Max = 24000.0f; //24000
+    StaticInfo->CameraSpeedParams.Step = 0.01f;//5
+    SDK::ACharacter
     return StaticInfo;
 }, SDK::UBrickEditorStaticInfo*(SDK::ABrickEditor*))
