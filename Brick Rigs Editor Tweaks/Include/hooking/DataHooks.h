@@ -52,20 +52,3 @@ HOOK(ULightBrick_ReflectProperties, F_REFLECT_BRICK_PROPERTIES_LIGHT_BRICK, [](S
         SetNumericPropertyMinMax(GlobalLightBrightness, MIN_GEAR_REDUCTION, MAX_GEAR_REDUCTION);
     }
 }, void(SDK::ULightBrick*, void*))
-
-HOOK(UThrusterBrick_RelfectProperties, F_REFLECT_BRICK_PROPERTIES_THRUSTER_BRICK, [](SDK::UThrusterBrick* This, void* Params) -> void
-{
-    HOOK_CALL_ORIGINAL(UThrusterBrick_RelfectProperties(), This, Params);
-    auto GlobalThrusterScaleRef = reinterpret_cast<FSharedRef*>(G_GLOBAL_THRUSTER_ACCUMULATED);
-    if (GlobalThrusterScaleRef->obj)
-    {
-        auto GlobalThrusterScale = static_cast<FNumericBrickPropertyBase*>(GlobalThrusterScaleRef->obj);
-        std::cout << GlobalThrusterScale->Range.opt.Value.Max.Data.X << "\n";//Reads wierd values
-        std::cout << GlobalThrusterScale->Range.opt.Value.Max.Data.Y << "\n";
-        std::cout << GlobalThrusterScale->Range.opt.Value.Max.Data.Z << "\n";
-        std::cout << GlobalThrusterScale->Range.opt.Value.Min.Data.X << "\n";
-        std::cout << GlobalThrusterScale->Range.opt.Value.Min.Data.Y << "\n";
-        std::cout << GlobalThrusterScale->Range.opt.Value.Min.Data.Z << "\n";
-        //SetNumericPropertyMinMax(GlobalThrusterScale, MIN_THRUSTER_SCALE, MAX_THRUSTER_SCALE);
-    }
-}, void(SDK::UThrusterBrick*, void*));

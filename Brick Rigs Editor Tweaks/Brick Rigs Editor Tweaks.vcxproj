@@ -591,9 +591,11 @@
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="source\Cleanup.cpp" />
     <ClCompile Include="source\main\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\Cleanup.h" />
     <ClInclude Include="Include\hooking\DataHooks.h" />
     <ClInclude Include="Include\hooking\Hook.h" />
     <ClInclude Include="Include\main\Main.h" />
