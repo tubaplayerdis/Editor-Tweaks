@@ -44,6 +44,5 @@ HOOK(GetBrickEditorStaticInfo, F_GET_BRICK_EDITOR_STATIC_INFO, [](SDK::ABrickEdi
     StaticInfo->CameraSpeedParams.SpeedRange.Min = 10.0f; //300
     StaticInfo->CameraSpeedParams.SpeedRange.Max = 24000.0f; //24000
     StaticInfo->CameraSpeedParams.Step = 0.01f;//5
-    SDK::ACharacter
     return StaticInfo;
 }, SDK::UBrickEditorStaticInfo*(SDK::ABrickEditor*))
