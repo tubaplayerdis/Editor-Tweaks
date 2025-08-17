@@ -393,9 +393,7 @@ inline unsigned long long Hook<Ret(Args...)>::FindPatternAll(const char* pattern
 		for (unsigned int i = 0; i < (cbNeeded / sizeof(HMODULE)); i++) {
 			TCHAR szModName[MAX_PATH];
 
-			if (GetModuleFileNameEx(hProcess, hMods[i], szModName, sizeof(szModName) / sizeof(TCHAR))) {
-				std::wcout << L"Searching Module: " << szModName << std::endl;
-			}
+			GetModuleFileNameEx(hProcess, hMods[i], szModName, sizeof(szModName) / sizeof(TCHAR));
 
 			uintptr_t base = reinterpret_cast<uintptr_t>(hMods[i]);
 

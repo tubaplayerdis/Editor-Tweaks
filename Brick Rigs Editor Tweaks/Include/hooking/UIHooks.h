@@ -7,11 +7,26 @@
 #include <string>
 #include "../TypeReconstruct.h"
 
-#define F_OPEN_INPUT_CATEGORY (BASE + 0x0DDC3A0)
+#define F_OPEN_CONTEXT_MENU (BASE + 0x0CA84B0)
 
-HOOK(OpenInputCategory, F_OPEN_INPUT_CATEGORY, [](SDK::UWBP_InputActionList_C* This, SDK::UInputCategory* Category) -> void
+#undef TEXT
+#define TEXT(text) SDK::UKismetTextLibrary::Conv_StringToText(SDK::FString(text))
+
+struct FContextMenuParams
 {
-    HOOK_CALL_ORIGINAL(OpenInputCategory(), This, Category);
-    if (!Category) return;
-    std::cout << "Open Category: " << Category->DisplayInfo.Name.ToString() << "\n";
-}, void(SDK::UWBP_InputActionList_C*, SDK::UInputCategory*))
+    SDK::FText Text;
+    SDK::TWeakObjectPtr<SDK::UObject> Owner;
+    SDK::TWeakObjectPtr<SDK::UInputCategory> InputCategory;
+    SDK::TWeakObjectPtr<SDK::UClass> InputComponentClass;
+};
+
+HOOK(OpenContextMenu, F_OPEN_CONTEXT_MENU, [](SDK::UWBP_WindowManager_C* This, FContextMenuParams* Context) -> bool
+{
+    bool ret = HOOK_CALL_ORIGINAL(OpenContextMenu(), This, Context);
+    if (!Context) return ret;
+    if (Context->Text.ToString() == "Selection")
+    {
+        std::cout << Context->Owner.Get()->GetName() << "\n";
+    }
+    return ret;
+}, bool(SDK::UWBP_WindowManager_C*, FContextMenuParams*));

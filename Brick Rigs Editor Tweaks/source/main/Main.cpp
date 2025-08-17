@@ -40,7 +40,7 @@ void main_loop()
     HOOK_INIT(ULightBrick_ReflectProperties());
     HOOK_INIT(GetThrustForceRange());
     HOOK_INIT(GetBrickEditorStaticInfo());
-    HOOK_INIT(OpenInputCategory());
+    HOOK_INIT(OpenContextMenu());
 
     //Enable Hooks
     HOOK_ENABLE(GetMaxBrickSize());
@@ -49,7 +49,7 @@ void main_loop()
     HOOK_ENABLE(ULightBrick_ReflectProperties());
     HOOK_ENABLE(GetThrustForceRange());
     HOOK_ENABLE(GetBrickEditorStaticInfo());
-    HOOK_ENABLE(OpenInputCategory());
+    HOOK_ENABLE(OpenContextMenu());
 
     while (true) {
 
@@ -67,7 +67,7 @@ void main_loop()
     HOOK_DISABLE(ULightBrick_ReflectProperties());
     HOOK_DISABLE(GetThrustForceRange());
     HOOK_DISABLE(GetBrickEditorStaticInfo());
-    HOOK_DISABLE(OpenInputCategory());
+    HOOK_DISABLE(OpenContextMenu());
 
     //Run Cleanup
     CleanupTweaks();
