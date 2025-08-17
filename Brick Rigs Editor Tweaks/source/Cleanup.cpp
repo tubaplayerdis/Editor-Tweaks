@@ -13,14 +13,13 @@ void SetNumericBrickPropertyMinMax(FNumericBrickPropertyBase* Base, float Min, f
     Base->Range.opt.Value.Min.Data.Z = Min;
 }
 
-void CleanupProperty(FSharedRef* SharedRefrence, float min, float max)
+void CleanupProperty(const FSharedRef* SharedReference, float min, float max)
 {
-    if (!SharedRefrence->obj) return;
-    auto GlobalVar =  static_cast<FNumericBrickPropertyBase*>(SharedRefrence->obj);
+    if (!SharedReference->obj) return;
+    auto GlobalVar =  static_cast<FNumericBrickPropertyBase*>(SharedReference->obj);
     SetNumericBrickPropertyMinMax(GlobalVar, min, max);
 }
 
-//TODO: Figure Out Norms
 #define GEAR_RATIO_MIN_NORM 0.1f
 #define GEAR_RATIO_MAX_NORM 10.0f
 #define LIGHT_BRIGHTNESS_MIN_NORM 0

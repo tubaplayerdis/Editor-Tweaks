@@ -598,6 +598,7 @@
     <ClInclude Include="Include\Cleanup.h" />
     <ClInclude Include="Include\hooking\DataHooks.h" />
     <ClInclude Include="Include\hooking\Hook.h" />
+    <ClInclude Include="Include\hooking\UIHooks.h" />
     <ClInclude Include="Include\main\Main.h" />
     <ClInclude Include="Include\TypeReconstruct.h" />
   </ItemGroup>

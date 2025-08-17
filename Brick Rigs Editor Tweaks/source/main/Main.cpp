@@ -4,6 +4,7 @@
 #include "../../Include/Cleanup.h"
 #include "../../Include/hooking/BrickHooks.h"
 #include "../../Include/hooking/DataHooks.h"
+#include "../../Include/hooking/UIHooks.h"
 
 namespace
 {
@@ -39,6 +40,7 @@ void main_loop()
     HOOK_INIT(ULightBrick_ReflectProperties());
     HOOK_INIT(GetThrustForceRange());
     HOOK_INIT(GetBrickEditorStaticInfo());
+    HOOK_INIT(OpenInputCategory());
 
     //Enable Hooks
     HOOK_ENABLE(GetMaxBrickSize());
@@ -47,6 +49,7 @@ void main_loop()
     HOOK_ENABLE(ULightBrick_ReflectProperties());
     HOOK_ENABLE(GetThrustForceRange());
     HOOK_ENABLE(GetBrickEditorStaticInfo());
+    HOOK_ENABLE(OpenInputCategory());
 
     while (true) {
 
@@ -57,13 +60,14 @@ void main_loop()
         if (UNINJECT_PRESS()) break;
     }
 
-    //Destroy Hooks
-    HOOK_DESTROY(GetMaxBrickSize());
-    HOOK_DESTROY(UpdatePropertiesPanel());
-    HOOK_DESTROY(UMotorBrick_ReflectProperties());
-    HOOK_DESTROY(ULightBrick_ReflectProperties());
-    HOOK_DESTROY(GetThrustForceRange());
-    HOOK_DESTROY(GetBrickEditorStaticInfo());
+    //Disable Hooks
+    HOOK_DISABLE(GetMaxBrickSize());
+    HOOK_DISABLE(UpdatePropertiesPanel());
+    HOOK_DISABLE(UMotorBrick_ReflectProperties());
+    HOOK_DISABLE(ULightBrick_ReflectProperties());
+    HOOK_DISABLE(GetThrustForceRange());
+    HOOK_DISABLE(GetBrickEditorStaticInfo());
+    HOOK_DISABLE(OpenInputCategory());
 
     //Run Cleanup
     CleanupTweaks();
