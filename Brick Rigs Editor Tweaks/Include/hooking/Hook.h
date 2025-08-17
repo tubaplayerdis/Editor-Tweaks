@@ -6,7 +6,7 @@
 /*    Author:     Aaron Wilk                                                  */
 /*    Created:    25 June 2025                                                */
 /*                                                                            */
-/*    Revisions:  V0.1                                                        */
+/*    Revisions:  V0.5                                                        */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 
@@ -117,29 +117,29 @@ public:
 	/// Creates a Hook object using the specified address and trampoline function. Does not register the Hook with MinHook. Use Create() to register with MinHook.
 	/// @param address Address of the function to hook.
 	/// @param trampFunc Valid trampoline function pointer matching the signature specified in the Hook objects template signature.
-    Hook(unsigned long long address, Ret(__fastcall* trampFunc)(Args...));
+	Hook(unsigned long long address, Ret(__fastcall* trampFunc)(Args...));
 
 	/// Creates a Hook object using the specified function pointer and trampoline function. Does not register the Hook with MinHook. For VTable entries use reinterpret_cast<Ret(__fastcall*)(Args...)>(vtable[index]).
 	/// @param pointer Function pointer of the specified signature in the Hook objects template signature.
 	/// @param trampFunc Valid trampoline function pointer matching the signature specified in the Hook objects template signature.
 	Hook(Ret(__fastcall* pointer)(Args...), Ret(__fastcall* trampFunc)(Args...));
 
-	/// @brief Explicit deconstructor for Hook. Disables then removes the Hook with MinHook. It is suggested to call Disable() or HOOK_DISABLE() instead of calling this if using the HOOK() macro to define the Hook.
-    ~Hook();
+	/// Explicit deconstructor for Hook. Disables then removes the Hook with MinHook. It is suggested to call Disable() or HOOK_DISABLE() instead of calling this if using the HOOK() macro to define the Hook.
+	~Hook();
 
 private:
-    bool enabled;
-    bool initialized;
+	bool enabled;
+	bool initialized;
 	SearchType Stype;
 
 	unsigned long long FunctionPointer;
-    const char* pattern;
-    const char* mask;
-    using Function_t = Ret(__fastcall*)(Args...);
+	const char* pattern;
+	const char* mask;
+	using Function_t = Ret(__fastcall*)(Args...);
 
-    /// Initializes the Hook with MinHook and Searches patterns if necessary.
-    /// @return Whether initialization completed successfully. Called in Create().
-    bool Init();
+	/// Initializes the Hook with MinHook and Searches patterns if necessary.
+	/// @return Whether initialization completed successfully. Called in Create().
+	bool Init();
 
 public:
 	Function_t OriginalFunction;
@@ -149,39 +149,39 @@ protected:
 
 public:
 
-	/// @brief Registers the Hook with MinHook but does not enable it
+	/// Registers the Hook with MinHook but does not enable it
 	void Create();
 
-	/// @brief Enables the Hook.
-    void Enable();
+	/// Enables the Hook.
+	void Enable();
 
-	/// @brief Disables the Hook.
-    void Disable();
+	/// Disables the Hook.
+	void Disable();
 
-    /// @brief Calls the original function of the Hook, bypassing the trampoline
-    /// @param args Args of the function as defined in the Hook objects template signature
-    /// @return The return type defined in the Hook objects template signature
-    Ret CallOriginalFunction(Args... args);
+	/// Calls the original function of the Hook, bypassing the trampoline
+	/// @param args Args of the function as defined in the Hook objects template signature
+	/// @return The return type defined in the Hook objects template signature
+	Ret CallOriginalFunction(Args... args);
 
-    /// @brief Whether the Hook has been registered with MinHook
-    /// @return Initialization state of the Hook in respect to its MinHook registration.
-    bool IsInitialized() const;
+	/// Whether the Hook has been registered with MinHook
+	/// @return Initialization state of the Hook in respect to its MinHook registration.
+	bool IsInitialized() const;
 
-    /// @brief Whether the Hook is enabled
-    /// @return Enabled state of the Hook.
-    bool IsEnabled() const;
+	/// Whether the Hook is enabled
+	/// @return Enabled state of the Hook.
+	bool IsEnabled() const;
 
 public:
 
-    /// @brief Finds the function address of the given pattern, mask, module base, and module size. Uses the Boyer-Moore-Horespool algorithm, but is not 100% guaranteed a match.
-    /// @param pattern pattern of the signature to scan for, in format: \x00
-    /// @param mask mask of the signature to scan for, using x for matches and ? for wildcards
-    /// @param base module base of the module to be scanned
-    /// @param size module size of the module to be scanned
-    /// @return Function address of the given pattern and mask, will return 0 if not found.
-    static unsigned long long FindPatternF(const char* pattern, const char* mask, unsigned long long base, unsigned __int64 size);
+	/// Finds the function address of the given pattern, mask, module base, and module size. Uses the Boyer-Moore-Horespool algorithm, but is not 100% guaranteed a match.
+	/// @param pattern pattern of the signature to scan for, in format: \x00
+	/// @param mask mask of the signature to scan for, using x for matches and ? for wildcards
+	/// @param base module base of the module to be scanned
+	/// @param size module size of the module to be scanned
+	/// @return Function address of the given pattern and mask, will return 0 if not found.
+	static unsigned long long FindPatternF(const char* pattern, const char* mask, unsigned long long base, unsigned __int64 size);
 
-	/// @brief Finds the function address of the given pattern, mask, module base, and module size. Slower but is guaranteed a match given the pattern and mask are valid.
+	/// Finds the function address of the given pattern, mask, module base, and module size. Slower but is guaranteed a match given the pattern and mask are valid.
 	/// @param pattern pattern of the signature to scan for, in format: \x00
 	/// @param mask mask of the signature to scan for, using x for matches and ? for wildcards
 	/// @param base module base of the module to be scanned
@@ -189,25 +189,25 @@ public:
 	/// @return Function address of the given pattern and mask, will return 0 if not found.
 	static unsigned long long FindPatternS(const char* pattern, const char* mask, unsigned long long base, unsigned __int64 size);
 
-    /// @brief Finds the function address of the given pattern and mask searching through every module loaded in the program. Very slow and not recommended to use.
-    /// @param pattern pattern of the signature to scan for, in format: \x00
-    /// @param mask mask of the signature to scan for, using x for matches and ? for wildcards
-    /// @return Function address of the given pattern and mask, will return 0 if not found.
-    static unsigned long long FindPatternAll(const char* pattern, const char* mask);
+	/// Finds the function address of the given pattern and mask searching through every module loaded in the program. Very slow and not recommended to use.
+	/// @param pattern pattern of the signature to scan for, in format: \x00
+	/// @param mask mask of the signature to scan for, using x for matches and ? for wildcards
+	/// @return Function address of the given pattern and mask, will return 0 if not found.
+	static unsigned long long FindPatternAll(const char* pattern, const char* mask);
 
-    /// @brief Gets the base address of the current module specified by NULL.
-    /// @return Module base address of the current module, an Abstraction over the Win32 function GetModuleBaseAddress(NULL).
-    static unsigned long long GetModuleBase();
+	/// Gets the base address of the current module specified by NULL.
+	/// @return Module base address of the current module, an Abstraction over the Win32 function GetModuleBaseAddress(NULL).
+	static unsigned long long GetModuleBase();
 
-	/// @brief Gets the size of the current module specified by NULL.
+	/// Gets the size of the current module specified by NULL.
 	/// @return Module size of the current module, Uses GetModuleBase() as the current module.
 	static unsigned long long GetModuleSize();
 
-    /// @brief Gets the base and size of the current modules text section. Used for pattern scanning.
-    /// @param textBase In, reference to a "unsigned long long" variable to be modified.
-    /// @param textSize In, reference to a "unsigned __int64" variable to be modified.
-    /// @return Whether the text section of the current module was found.
-    static bool GetTextSection(unsigned long long& textBase, unsigned __int64& textSize);
+	/// Gets the base and size of the current modules text section. Used for pattern scanning.
+	/// @param textBase In, reference to a "unsigned long long" variable to be modified.
+	/// @param textSize In, reference to a "unsigned __int64" variable to be modified.
+	/// @return Whether the text section of the current module was found.
+	static bool GetTextSection(unsigned long long& textBase, unsigned __int64& textSize);
 
 };
 
@@ -267,18 +267,18 @@ bool Hook<Ret(Args...)>::Init() {
 		if (!GetTextSection(tbase, tsize)) return false;
 		switch (Stype)
 		{
-			case FAST:
-				FunctionPointer = FindPatternF(pattern, mask, tbase, tsize);
-				break;
-			case SAFE:
-				FunctionPointer = FindPatternS(pattern, mask, tbase, tsize);
-				break;
-			case ALL:
-				FunctionPointer = FindPatternAll(pattern, mask);
-				break;
-			default:
-				FunctionPointer = FindPatternF(pattern, mask, tbase, tsize);
-				break;
+		case FAST:
+			FunctionPointer = FindPatternF(pattern, mask, tbase, tsize);
+			break;
+		case SAFE:
+			FunctionPointer = FindPatternS(pattern, mask, tbase, tsize);
+			break;
+		case ALL:
+			FunctionPointer = FindPatternAll(pattern, mask);
+			break;
+		default:
+			FunctionPointer = FindPatternF(pattern, mask, tbase, tsize);
+			break;
 		}
 	}
 	if (FunctionPointer == 0) return false;
