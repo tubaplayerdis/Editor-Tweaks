@@ -21,7 +21,7 @@
 #include <utility>
 #include <iostream>
 
-/// Creates a Hook object using smart pointers and lambdas. SEE NOTE!
+/// Creates a Hook object using smart pointers and lambdas. Creates a function called "name()" (Where name is the first parameter of the macro) that can be used to access the Hook object created by this macro.
 /// @note Creates a function called "name()" (Where name is the first parameter of the macro) that can be used to access the Hook object created by this macro.
 /// @note Does not need to be explicitly deleted but is recommended to be explicitly disabled.
 /// @param name Name of the Hook, used when defining the access function .
