@@ -41,7 +41,8 @@ void main_loop()
     HOOK_INIT(GetThrustForceRange());
     HOOK_INIT(GetBrickEditorStaticInfo());
     HOOK_INIT(InitializeContextMenu());
-    HOOK_INIT(OnActionPresed());
+    HOOK_INIT(OnActionClicked());
+    HOOK_INIT(OnActionTriggered());
 
     //Enable Hooks
     HOOK_ENABLE(GetMaxBrickSize());
@@ -51,7 +52,8 @@ void main_loop()
     HOOK_ENABLE(GetThrustForceRange());
     HOOK_ENABLE(GetBrickEditorStaticInfo());
     HOOK_ENABLE(InitializeContextMenu());
-    HOOK_ENABLE(OnActionPresed());
+    HOOK_ENABLE(OnActionClicked());
+    HOOK_ENABLE(OnActionTriggered());
 
     while (true) {
 
@@ -70,7 +72,8 @@ void main_loop()
     HOOK_DISABLE(GetThrustForceRange());
     HOOK_DISABLE(GetBrickEditorStaticInfo());
     HOOK_DISABLE(InitializeContextMenu());
-    HOOK_DISABLE(OnActionPresed());
+    HOOK_DISABLE(OnActionClicked());
+    HOOK_DISABLE(OnActionTriggered());
 
     //Run Cleanup
     CleanupTweaks();
