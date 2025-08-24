@@ -18,6 +18,9 @@
 #include <cstdlib>
 #include <utility>
 
+/// Current module base address.
+#define BASE ((unsigned long long)GetModuleHandle(nullptr))
+
 /// <summary>
 /// Call an internal game function using its address.
 /// </summary>
