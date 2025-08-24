@@ -1,6 +1,7 @@
 #include "../Include/Cleanup.h"
 #include "../Include/TypeReconstruct.h"
 #include "../Include/hooking/DataHooks.h"
+#include "../Include/hooking/UIHooks.h"
 
 void SetNumericBrickPropertyMinMax(FNumericBrickPropertyBase* Base, float Min, float Max) //Same as set numeric property min max
 {
@@ -28,6 +29,10 @@ void CleanupProperty(const FSharedRef* SharedReference, float min, float max)
 
 void CleanupTweaks()
 {
+    if (CurrentActionRef)
+    {
+        CurrentActionRef->RemoveFromParent();
+    }
     CleanupProperty(reinterpret_cast<FSharedRef*>(G_GLOBAL_GEAR_RATIO), GEAR_RATIO_MIN_NORM, GEAR_RATIO_MAX_NORM);
     CleanupProperty(reinterpret_cast<FSharedRef*>(G_GLOBAL_LIGHT_BRIGHTNESS), GEAR_RATIO_MIN_NORM, GEAR_RATIO_MAX_NORM);
 }

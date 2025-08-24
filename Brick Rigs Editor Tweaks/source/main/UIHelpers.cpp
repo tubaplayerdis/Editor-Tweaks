@@ -2,10 +2,33 @@
 
 #include <Helpers/GameFunctions.hpp>
 
-#define F_GET_ACTIVE_OBJECT (BASE + 0x0BCC850)
-#define F_SELECT_OBJECTS (BASE + 0x0C0AE50)
+#define F_UPDATE_OBJECT_SELECTION_STATE reinterpret_cast<void (*)(SDK::UBrickEditorObject*, EBrickSelectionState)>(BASE + 0x0C17C30)
+#define F_SELECT_OR_HIDE_OBJECTS (BASE + 0x0C0BDF0)
 #define M_PARENT_WIDGET (0x270)
 #define M_ACTION_NAME (0x27C)
+#define M_SELECTED_OBJECTS (0x3C8)
+
+enum class EBrickSelectionState : uint8_t
+{
+    Unselected,
+    Selected,
+    Active
+};
+
+enum class ESelectObjectsMode : uint8_t
+{
+    AddToSelection,
+    MoveToStart,
+    RemoveFromSelection,
+    Destroyed,
+    ReplaceSelection,
+    ToggleSelection
+};
+
+bool SelectOrHideObjects(SDK::ABrickEditor* This, SDK::TArray<SDK::TWeakObjectPtr<SDK::UBrickEditorObject>>* OutSelectedObjects, SDK::TArray<SDK::UBrickEditorObject*>* ObjectsToSelect, ESelectObjectsMode Mode, bool (*CanSelectFunc)(SDK::UBrickEditorObject*))
+{
+    return CallGameFunction<bool, SDK::ABrickEditor*, SDK::TArray<SDK::TWeakObjectPtr<SDK::UBrickEditorObject>>*, SDK::TArray<SDK::UBrickEditorObject*>*, ESelectObjectsMode, void (*)(SDK::UBrickEditorObject*, EBrickSelectionState), bool (*)(SDK::UBrickEditorObject*)>(F_SELECT_OR_HIDE_OBJECTS, This, OutSelectedObjects, ObjectsToSelect, Mode, F_UPDATE_OBJECT_SELECTION_STATE, CanSelectFunc);
+}
 
 bool IsActionNameValid(SDK::UInputActionWidget* Input)
 {
@@ -83,17 +106,17 @@ void SelectValidObjects(SDK::UInputActionListWidget* This)
             ActiveEditor = static_cast<SDK::ABrickEditor*>(Obj);
         }
     }
-    if (!ActiveEditor || ActiveEditor->EditorInterfaceComponent) return;
+    if (!ActiveEditor || !ActiveEditor->EditorInterfaceComponent) return;
 
     //3. Get the active object
-    auto ActiveObject = static_cast<SDK::UBrick*>(CallGameFunction<SDK::UBrickEditorObject*, SDK::ABrickEditor*>(F_GET_ACTIVE_OBJECT, ActiveEditor));
+    SDK::TArray<SDK::TWeakObjectPtr<SDK::UBrickEditorObject>> SelectedObjects = GetMember<SDK::TArray<SDK::TWeakObjectPtr<SDK::UBrickEditorObject>>>(ActiveEditor, M_SELECTED_OBJECTS);
+    if (SelectedObjects.Num() < 1) return;
+    auto ActiveObject = Cast<SDK::UBrick>(SelectedObjects[0].Get());
     if (!ActiveObject)
     {
         std::cout << ActiveObject << '\n';
         return;
     }
-
-    std::cout << ActiveObject->GetName() << std::endl;
 
     //4. Iterate and find.
     std::vector<SDK::UBrickEditorObject*> Objects;
@@ -101,7 +124,11 @@ void SelectValidObjects(SDK::UInputActionListWidget* This)
     {
         //Objects are searched for cases based and excluded upon first mis-matched case.
 
-        if (!_Object->IsA(SDK::UBrick::StaticClass())) return;
+        if (!_Object->IsA(SDK::UBrick::StaticClass()))
+        {
+            std::cout << "wrong type!" << '\n';
+            return;
+        }
         SDK::UBrick* Object = static_cast<SDK::UBrick*>(_Object);
 
         if (sClass)
@@ -132,13 +159,20 @@ void SelectValidObjects(SDK::UInputActionListWidget* This)
         Objects.push_back(ActiveObject);
     }
 
-    //5. Copy vector to array and pass to selection function.
     auto NewObjects = SDK::TAllocatedArray<SDK::UBrickEditorObject*>(Objects.size());
     for (int i = 0; i < Objects.size(); i++)
     {
-        NewObjects[i] = Objects[i];
+        NewObjects.Add(Objects[i]);
     }
-    CallGameFunction<void, SDK::UBrickEditorMode*, const SDK::TArray<SDK::UBrickEditorObject*>*, bool>(F_SELECT_OBJECTS, ActiveEditor->CurrentEditorMode, &NewObjects, true);
+
+    SDK::TArray<SDK::TWeakObjectPtr<SDK::UBrickEditorObject>> OutArray = SDK::TArray<SDK::TWeakObjectPtr<SDK::UBrickEditorObject>>();
+
+    std::cout << NewObjects.Num() << '\n';
+
+    SelectOrHideObjects(ActiveEditor, &OutArray, &NewObjects, ESelectObjectsMode::AddToSelection, [](SDK::UBrickEditorObject* Object) -> bool
+    {
+        return true;
+    });
 
 }
 

@@ -92,6 +92,19 @@ void SetMember(void* base, std::size_t offset, const T& value)
     *reinterpret_cast<T*>(reinterpret_cast<std::uint8_t*>(base) + offset) = value;
 }
 
+
+/// <summary>
+/// Casts a pointer
+/// </summary>
+/// <typeparam name="T">pointer type</typeparam>
+/// <param name="obj">pointer object to cast</param>
+/// <returns>T*</returns>
+template<typename T>
+T* Cast(void* obj)
+{
+    return static_cast<T*>(obj);
+}
+
 /// <summary>
 /// Find a function address.
 /// </summary>
