@@ -1,12 +1,6 @@
 #include "../Brick Rigs Editor Tweaks/Include/main/UIHelpers.h"
 
-#include <Helpers/GameFunctions.hpp>
-
-#define F_UPDATE_OBJECT_SELECTION_STATE reinterpret_cast<void (*)(SDK::UBrickEditorObject*, EBrickSelectionState)>(BASE + 0x0C17C30)
-#define F_SELECT_OR_HIDE_OBJECTS (BASE + 0x0C0BDF0)
-#define M_PARENT_WIDGET (0x270)
-#define M_ACTION_NAME (0x27C)
-#define M_SELECTED_OBJECTS (0x3C8)
+#include <Utils/GameFunctions.hpp>
 
 enum class EBrickSelectionState : uint8_t
 {
@@ -14,6 +8,14 @@ enum class EBrickSelectionState : uint8_t
     Selected,
     Active
 };
+
+
+auto F_UPDATE_OBJECT_SELECTION_STATE = reinterpret_cast<void (__fastcall*)(SDK::ABrickEditor*, SDK::UBrickEditorObject*, EBrickSelectionState)>(BASE + 0x0C17C30);
+auto F_CAN_SELECT_OBJECT = reinterpret_cast<bool (__fastcall*)(SDK::ABrickEditor*, SDK::UBrickEditorObject*)>(BASE + 0x0BDDF30);
+#define F_SELECT_OR_HIDE_OBJECTS (BASE + 0x0C0BDF0)
+#define M_PARENT_WIDGET (0x270)
+#define M_ACTION_NAME (0x27C)
+#define M_SELECTED_OBJECTS (0x3C8)
 
 enum class ESelectObjectsMode : uint8_t
 {
@@ -25,9 +27,11 @@ enum class ESelectObjectsMode : uint8_t
     ToggleSelection
 };
 
-bool SelectOrHideObjects(SDK::ABrickEditor* This, SDK::TArray<SDK::TWeakObjectPtr<SDK::UBrickEditorObject>>* OutSelectedObjects, SDK::TArray<SDK::UBrickEditorObject*>* ObjectsToSelect, ESelectObjectsMode Mode, bool (*CanSelectFunc)(SDK::UBrickEditorObject*))
+//This still crashes. figure out why.
+static bool SelectOrHideObjects(SDK::ABrickEditor* This, SDK::TArray<SDK::UBrickEditorObject*>* ObjectsToSelect, ESelectObjectsMode Mode)
 {
-    return CallGameFunction<bool, SDK::ABrickEditor*, SDK::TArray<SDK::TWeakObjectPtr<SDK::UBrickEditorObject>>*, SDK::TArray<SDK::UBrickEditorObject*>*, ESelectObjectsMode, void (*)(SDK::UBrickEditorObject*, EBrickSelectionState), bool (*)(SDK::UBrickEditorObject*)>(F_SELECT_OR_HIDE_OBJECTS, This, OutSelectedObjects, ObjectsToSelect, Mode, F_UPDATE_OBJECT_SELECTION_STATE, CanSelectFunc);
+    SDK::TArray<SDK::TWeakObjectPtr<SDK::UBrickEditorObject>>* OutObjs = &GetMember<SDK::TArray<SDK::TWeakObjectPtr<SDK::UBrickEditorObject>>>(This, M_SELECTED_OBJECTS);
+    return CallGameFunction<bool, SDK::ABrickEditor*, SDK::TArray<SDK::TWeakObjectPtr<SDK::UBrickEditorObject>>*, SDK::TArray<SDK::UBrickEditorObject*>*, ESelectObjectsMode, void (__fastcall*)(SDK::ABrickEditor*, SDK::UBrickEditorObject*, EBrickSelectionState), bool (__fastcall*)(SDK::ABrickEditor*, SDK::UBrickEditorObject*)>(F_SELECT_OR_HIDE_OBJECTS, This, OutObjs, ObjectsToSelect, Mode, F_UPDATE_OBJECT_SELECTION_STATE, F_CAN_SELECT_OBJECT);
 }
 
 bool IsActionNameValid(SDK::UInputActionWidget* Input)
@@ -165,14 +169,9 @@ void SelectValidObjects(SDK::UInputActionListWidget* This)
         NewObjects.Add(Objects[i]);
     }
 
-    SDK::TArray<SDK::TWeakObjectPtr<SDK::UBrickEditorObject>> OutArray = SDK::TArray<SDK::TWeakObjectPtr<SDK::UBrickEditorObject>>();
-
     std::cout << NewObjects.Num() << '\n';
 
-    SelectOrHideObjects(ActiveEditor, &OutArray, &NewObjects, ESelectObjectsMode::AddToSelection, [](SDK::UBrickEditorObject* Object) -> bool
-    {
-        return true;
-    });
+    SelectOrHideObjects(ActiveEditor, &NewObjects, ESelectObjectsMode::AddToSelection);
 
 }
 

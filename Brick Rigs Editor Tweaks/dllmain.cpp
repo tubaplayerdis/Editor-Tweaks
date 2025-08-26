@@ -12,7 +12,7 @@
 
 #include <windows.h>
 #include <cstdio>
-#include <MinHook.h>
+#include <Hooking/MinHook/MinHook.h>
 #include "include/main/Main.h"
 
 namespace

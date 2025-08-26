@@ -1,6 +1,6 @@
 #pragma once
-#include "Hook.h"
-#include <SDK.hpp>
+#include <Hooking/Hook.hpp>
+#include <BR-SDK.hpp>
 #include "../TypeReconstruct.h"
 
 #define F_REFLECT_BRICK_PROPERTIES_MOTOR_BRICK (BASE + 0x0C58560)

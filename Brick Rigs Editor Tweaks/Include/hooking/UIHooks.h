@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Hook.h"
-#include <SDK.hpp>
+#include <Hooking/Hook.hpp>
+#include <BR-SDK.hpp>
 #include <Utils.hpp>
 #include <iostream>
 #include "../main/UIHelpers.h"

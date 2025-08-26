@@ -12,8 +12,8 @@
 
 #pragma once
 
-//Includes all helpers.
+//Includes all utils.
 
-#include "Helpers/Utilities.hpp"
-#include "Helpers/ActorUtilities.hpp"
-#include "Helpers/GameFunctions.hpp"
+#include "Utils/Utilities.hpp"
+#include "Utils/ActorUtilities.hpp"
+#include "Utils/GameFunctions.hpp"
