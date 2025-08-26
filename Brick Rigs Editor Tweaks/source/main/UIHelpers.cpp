@@ -10,9 +10,8 @@ enum class EBrickSelectionState : uint8_t
 };
 
 
-auto F_UPDATE_OBJECT_SELECTION_STATE = reinterpret_cast<void (__fastcall*)(SDK::ABrickEditor*, SDK::UBrickEditorObject*, EBrickSelectionState)>(BASE + 0x0C17C30);
-auto F_CAN_SELECT_OBJECT = reinterpret_cast<bool (__fastcall*)(SDK::ABrickEditor*, SDK::UBrickEditorObject*)>(BASE + 0x0BDDF30);
-#define F_SELECT_OR_HIDE_OBJECTS (BASE + 0x0C0BDF0)
+
+#define F_SELECT_OBJECTS (BASE + 0x0C0AE50)
 #define M_PARENT_WIDGET (0x270)
 #define M_ACTION_NAME (0x27C)
 #define M_SELECTED_OBJECTS (0x3C8)
@@ -27,11 +26,9 @@ enum class ESelectObjectsMode : uint8_t
     ToggleSelection
 };
 
-//This still crashes. figure out why.
-static bool SelectOrHideObjects(SDK::ABrickEditor* This, SDK::TArray<SDK::UBrickEditorObject*>* ObjectsToSelect, ESelectObjectsMode Mode)
+static void SelectOrHideObjects(SDK::UBrickEditorDefaultMode* This, SDK::TArray<SDK::UBrickEditorObject*>* ObjectsToSelect, bool bAddToSelection)
 {
-    SDK::TArray<SDK::TWeakObjectPtr<SDK::UBrickEditorObject>>* OutObjs = &GetMember<SDK::TArray<SDK::TWeakObjectPtr<SDK::UBrickEditorObject>>>(This, M_SELECTED_OBJECTS);
-    return CallGameFunction<bool, SDK::ABrickEditor*, SDK::TArray<SDK::TWeakObjectPtr<SDK::UBrickEditorObject>>*, SDK::TArray<SDK::UBrickEditorObject*>*, ESelectObjectsMode, void (__fastcall*)(SDK::ABrickEditor*, SDK::UBrickEditorObject*, EBrickSelectionState), bool (__fastcall*)(SDK::ABrickEditor*, SDK::UBrickEditorObject*)>(F_SELECT_OR_HIDE_OBJECTS, This, OutObjs, ObjectsToSelect, Mode, F_UPDATE_OBJECT_SELECTION_STATE, F_CAN_SELECT_OBJECT);
+    return CallGameFunction<void, SDK::UBrickEditorDefaultMode*, SDK::TArray<SDK::UBrickEditorObject*>*, bool>(F_SELECT_OBJECTS, This, ObjectsToSelect, bAddToSelection);
 }
 
 bool IsActionNameValid(SDK::UInputActionWidget* Input)
@@ -171,7 +168,9 @@ void SelectValidObjects(SDK::UInputActionListWidget* This)
 
     std::cout << NewObjects.Num() << '\n';
 
-    SelectOrHideObjects(ActiveEditor, &NewObjects, ESelectObjectsMode::AddToSelection);
+    //Causes nothing to be selected! Great!. I thinks its working but has to be tinkered with.
+    //TODO: Fix and read note
+    SelectOrHideObjects(Cast<SDK::UBrickEditorDefaultMode>(ActiveEditor->CurrentEditorMode), &NewObjects, true);
 
 }
 
