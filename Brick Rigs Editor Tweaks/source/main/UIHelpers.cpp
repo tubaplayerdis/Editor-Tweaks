@@ -11,24 +11,70 @@ enum class EBrickSelectionState : uint8_t
 
 
 
-#define F_SELECT_OBJECTS (BASE + 0x0C0AE50)
+#define F_SELECT_OBJECTS (BASE + 0x0C0AB10)
 #define M_PARENT_WIDGET (0x270)
 #define M_ACTION_NAME (0x27C)
 #define M_SELECTED_OBJECTS (0x3C8)
 
 enum class ESelectObjectsMode : uint8_t
 {
-    AddToSelection,
-    MoveToStart,
-    RemoveFromSelection,
-    Destroyed,
-    ReplaceSelection,
-    ToggleSelection
+    AddToSelection = 0,
+    MoveToStart = 1,
+    RemoveFromSelection = 2,
+    Destroyed = 3,
+    ReplaceSelection = 4,
+    ToggleSelection = 5
 };
 
-static void SelectOrHideObjects(SDK::UBrickEditorDefaultMode* This, SDK::TArray<SDK::UBrickEditorObject*>* ObjectsToSelect, bool bAddToSelection)
+namespace FMemory
 {
-    return CallGameFunction<void, SDK::UBrickEditorDefaultMode*, SDK::TArray<SDK::UBrickEditorObject*>*, bool>(F_SELECT_OBJECTS, This, ObjectsToSelect, bAddToSelection);
+    constexpr std::size_t F_MALLOC_EXTERNAL = 0x0F25460;
+    constexpr std::size_t F_FREE = 0x0F19030;
+
+    void* Malloc(std::size_t size, unsigned int alignment)
+    {
+        return CallGameFunction<void*, size_t, unsigned int>(BASE + F_MALLOC_EXTERNAL, size, alignment);
+    }
+
+    void Free(void* ptr)
+    {
+        CallGameFunction<void, void*>(BASE + F_FREE, ptr);
+    }
+}
+
+namespace FArray
+{
+    template <typename T>
+    class TCustomArray
+    {
+        T* _Data;
+        int _Max;
+        int _Num;
+
+        public:
+        TCustomArray(int max)
+        {
+            _Data = reinterpret_cast<T*>(FMemory::Malloc(sizeof(T) * max, 0));
+            _Max = max;
+            _Num = 0;
+        }
+
+        void Add(T Member)
+        {
+            _Data[_Num] = Member;
+            _Num++;
+        }
+
+        int Num()
+        {
+            return _Num;
+        }
+    };
+}
+
+static void SelectObjects(SDK::ABrickEditor* This, void* ObjectsToSelect, ESelectObjectsMode Mode)
+{
+    return CallGameFunction<void, SDK::ABrickEditor*, void*, ESelectObjectsMode, bool, bool>(F_SELECT_OBJECTS, This, ObjectsToSelect, Mode, false, true);
 }
 
 bool IsActionNameValid(SDK::UInputActionWidget* Input)
@@ -157,10 +203,16 @@ void SelectValidObjects(SDK::UInputActionListWidget* This)
             if (ActiveObject->GetStaticInfoClass() != Object->GetStaticInfoClass()) continue;//the static info classes are like UProperllerBrick
         }
 
+        if (_Object == ActiveObject)
+        {
+            continue;
+        }
+
         Objects.push_back(ActiveObject);
     }
 
-    auto NewObjects = SDK::TAllocatedArray<SDK::UBrickEditorObject*>(Objects.size());
+    //Prevents a crash.
+    auto NewObjects = FArray::TCustomArray<SDK::UBrickEditorObject*>(Objects.size());
     for (int i = 0; i < Objects.size(); i++)
     {
         NewObjects.Add(Objects[i]);
@@ -168,10 +220,11 @@ void SelectValidObjects(SDK::UInputActionListWidget* This)
 
     std::cout << NewObjects.Num() << '\n';
 
-    //Causes nothing to be selected! Great!. I thinks its working but has to be tinkered with.
+    //Still does not work. The custom TArray implementation works though
     //TODO: Fix and read note
-    SelectOrHideObjects(Cast<SDK::UBrickEditorDefaultMode>(ActiveEditor->CurrentEditorMode), &NewObjects, true);
+    SelectObjects(ActiveEditor, &NewObjects, ESelectObjectsMode::AddToSelection);
 
+    std::cout << ActiveEditor->CurrentEditorMode->GetName() << std::endl;
 }
 
 SDK::UInputActionListWidget* GetParentWidget(SDK::UInputActionWidget* Widget)
