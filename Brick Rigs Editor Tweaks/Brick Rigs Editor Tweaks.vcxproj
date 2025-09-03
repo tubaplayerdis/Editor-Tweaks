@@ -117,7 +117,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(_ZVcpkgCurrentInstalledDir)$(_ZVcpkgConfigSubdir)lib;$(_ZVcpkgCurrentInstalledDir)$(_ZVcpkgConfigSubdir)lib\manual-link;$(SolutionDir)lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies);$(_ZVcpkgCurrentInstalledDir)$(_ZVcpkgConfigSubdir)lib\*.lib;BR-SDK_DEBUG.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);$(_ZVcpkgCurrentInstalledDir)$(_ZVcpkgConfigSubdir)lib\*.lib;BR-SDK_DEBUG.lib;ImGui_Debug.lib;d3d11.lib;dxgi.lib;user32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -160,12 +160,15 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(_ZVcpkgCurrentInstalledDir)$(_ZVcpkgConfigSubdir)lib;$(_ZVcpkgCurrentInstalledDir)$(_ZVcpkgConfigSubdir)lib\manual-link;$(SolutionDir)lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies);$(_ZVcpkgCurrentInstalledDir)$(_ZVcpkgConfigSubdir)lib\*.lib;BR-SDK_RELEASE.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);$(_ZVcpkgCurrentInstalledDir)$(_ZVcpkgConfigSubdir)lib\*.lib;BR-SDK_RELEASE.lib;ImGui_Release.lib;d3d11.lib;dxgi.lib;user32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="source\Cleanup.cpp" />
+    <ClCompile Include="source\gui\GuiManager.cpp" />
+    <ClCompile Include="source\gui\PropertyEditor.cpp" />
+    <ClCompile Include="source\kiero\Kiero.cpp" />
     <ClCompile Include="source\main\Main.cpp" />
     <ClCompile Include="source\main\UIHelpers.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
@@ -247,8 +250,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Cleanup.h" />
+    <ClInclude Include="Include\gui\GuiManager.h" />
+    <ClInclude Include="Include\gui\Menus.h" />
     <ClInclude Include="Include\hooking\DataHooks.h" />
     <ClInclude Include="Include\hooking\UIHooks.h" />
+    <ClInclude Include="Include\kiero\Kiero.h" />
     <ClInclude Include="Include\main\Main.h" />
     <ClInclude Include="Include\main\UIHelpers.h" />
     <ClInclude Include="Include\TypeReconstruct.h" />

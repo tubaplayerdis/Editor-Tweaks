@@ -2,9 +2,11 @@
 #include <windows.h>
 
 #include "../../Include/Cleanup.h"
+#include "../../Include/gui/GuiManager.h"
 #include "../../Include/hooking/BrickHooks.h"
 #include "../../Include/hooking/DataHooks.h"
 #include "../../Include/hooking/UIHooks.h"
+#include "../../Include/gui/Menus.h"
 
 namespace
 {
@@ -32,6 +34,7 @@ namespace
 void main_loop()
 {
     //Run initialization
+    menus::property_editor->display();
 
     //Initialize Hooks
     HOOK_INIT(GetMaxBrickSize());
@@ -74,6 +77,8 @@ void main_loop()
     HOOK_DISABLE(InitializeContextMenu());
     HOOK_DISABLE(OnActionClicked());
     HOOK_DISABLE(OnActionTriggered());
+
+    gui_manager::shutdown();
 
     //Run Cleanup
     CleanupTweaks();
