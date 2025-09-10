@@ -1,6 +1,6 @@
-#include "../Brick Rigs Editor Tweaks/Include/main/UIHelpers.h"
+#include "../../Include/main/UIHelpers.h"
 
-#include <Utils/GameFunctions.hpp>
+#include <BR-SDK.hpp>
 
 enum class EBrickSelectionState : uint8_t
 {

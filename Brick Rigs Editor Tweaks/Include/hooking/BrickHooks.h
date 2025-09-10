@@ -5,6 +5,7 @@
 #include <Utils.hpp>
 #include <iostream>
 #include <string>
+
 #include "../TypeReconstruct.h"
 
 #define F_GET_MAX_BRICK_SIZE (BASE + 0x0C3CA00)
