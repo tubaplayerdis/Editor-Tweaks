@@ -15,7 +15,6 @@ struct TSharedRef
     T* obj;
     uint8_t refenceController[0x8];
 };
-static_assert(sizeof(TSharedRef) == 0x10);
 
 struct FNumericBrickPropertyValue
 {

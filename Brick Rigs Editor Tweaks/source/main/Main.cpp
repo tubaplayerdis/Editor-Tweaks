@@ -5,7 +5,6 @@
 #include "../../Include/gui/GuiManager.h"
 #include "../../Include/hooking/BrickHooks.h"
 #include "../../Include/hooking/DataHooks.h"
-#include "../../Include/hooking/UIHooks.h"
 #include "../../Include/gui/Menus.h"
 
 namespace
@@ -34,7 +33,7 @@ namespace
 void main_loop()
 {
     //Run initialization
-    menus::property_editor->display();
+    menus::property_editor.display();
 
     //Initialize Hooks
     HOOK_INIT(GetMaxBrickSize());
@@ -43,9 +42,7 @@ void main_loop()
     HOOK_INIT(ULightBrick_ReflectProperties());
     HOOK_INIT(GetThrustForceRange());
     HOOK_INIT(GetBrickEditorStaticInfo());
-    HOOK_INIT(InitializeContextMenu());
-    HOOK_INIT(OnActionClicked());
-    HOOK_INIT(OnActionTriggered());
+    HOOK_INIT(AddProperties());
 
     //Enable Hooks
     HOOK_ENABLE(GetMaxBrickSize());
@@ -54,9 +51,7 @@ void main_loop()
     HOOK_ENABLE(ULightBrick_ReflectProperties());
     HOOK_ENABLE(GetThrustForceRange());
     HOOK_ENABLE(GetBrickEditorStaticInfo());
-    HOOK_ENABLE(InitializeContextMenu());
-    HOOK_ENABLE(OnActionClicked());
-    HOOK_ENABLE(OnActionTriggered());
+    HOOK_ENABLE(AddProperties());
 
     while (true) {
 
@@ -74,9 +69,7 @@ void main_loop()
     HOOK_DISABLE(ULightBrick_ReflectProperties());
     HOOK_DISABLE(GetThrustForceRange());
     HOOK_DISABLE(GetBrickEditorStaticInfo());
-    HOOK_DISABLE(InitializeContextMenu());
-    HOOK_DISABLE(OnActionClicked());
-    HOOK_DISABLE(OnActionTriggered());
+    HOOK_DISABLE(AddProperties());
 
     gui_manager::shutdown();
 

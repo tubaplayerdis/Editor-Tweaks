@@ -253,7 +253,6 @@
     <ClInclude Include="Include\gui\GuiManager.h" />
     <ClInclude Include="Include\gui\Menus.h" />
     <ClInclude Include="Include\hooking\DataHooks.h" />
-    <ClInclude Include="Include\hooking\UIHooks.h" />
     <ClInclude Include="Include\kiero\Kiero.h" />
     <ClInclude Include="Include\main\Main.h" />
     <ClInclude Include="Include\main\UIHelpers.h" />

@@ -18,6 +18,7 @@
 #include <iostream>
 #include <mutex>
 #include <shared_mutex>
+#include <atomic>
 
 // ------------------------------------------------------------
 // Typedefs
@@ -154,7 +155,6 @@ void gui_manager::shutdown()
 
 void gui_manager::remove_menu(gui_menu* menu)
 {
-    std::unique_lock<std::shared_mutex> lock(menus_mutex);
     for (size_t i = 0; i < menus.size(); i++)
     {
         if (menus[i] == menu)
@@ -165,9 +165,29 @@ void gui_manager::remove_menu(gui_menu* menu)
     }
 }
 
+void gui_manager::set_menu_visibility(gui_menu* menu, bool visibility)
+{
+    if (visibility)
+    {
+        add_menu(menu);
+        if (menu->custom_toggle) menu->custom_toggle(visibility);
+        menu->is_visible = visibility;
+    }
+    else
+    {
+        if (menu->custom_toggle) menu->custom_toggle(visibility);
+        menu->is_visible = visibility;
+    }
+
+}
+
+void gui_manager::toggle_menu_visibility(gui_menu* menu)
+{
+    set_menu_visibility(menu, !menu->is_visible);
+}
+
 void gui_manager::hide_all()
 {
-    std::unique_lock<std::shared_mutex> lock(menus_mutex);
     for (gui_menu* menu : menus)
     {
         if (menu->is_visible) prev_menus.push_back(menu);

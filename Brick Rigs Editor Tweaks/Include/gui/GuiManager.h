@@ -1,8 +1,9 @@
 #pragma once
 #include <memory>
+#include <atomic>
 
-#define DECLARE_GUI_MENU(name) extern std::unique_ptr<gui_menu> name;
-#define DEFINE_GUI_MENU(name, lamb, ...) std::unique_ptr<gui_menu> name = std::make_unique<gui_menu>(lamb, __VA_ARGS__);
+#define DECLARE_GUI_MENU(name) extern gui_menu name;
+#define DEFINE_GUI_MENU(name, lamb, ...) gui_menu name = gui_menu(lamb, __VA_ARGS__);
 
 struct gui_menu;
 
@@ -23,13 +24,17 @@ public:
 
     void add_menu(gui_menu* menu);
     void remove_menu(gui_menu* menu);
+
+    //Thread safe function to change menu visibility. these are not actually thread safe but work way better.
+    void set_menu_visibility(gui_menu* menu, bool visibility);
+    void toggle_menu_visibility(gui_menu* menu);
 };
 
 struct gui_menu
 {
     void(*menu)();
     void(*custom_toggle)(bool);
-    bool is_visible;
+    std::atomic<bool> is_visible;
 
     gui_menu(void(*in_menu)(), void(*in_custom_toggle)(bool) = nullptr)
     {
@@ -40,19 +45,16 @@ struct gui_menu
 
     void toggle()
     {
-        if (custom_toggle != nullptr) custom_toggle(!is_visible);
-        gui_manager::get()->add_menu(this);
-        is_visible = !is_visible;
+        gui_manager::get()->toggle_menu_visibility(this);
     }
 
     void display()
     {
-        is_visible = true;
-        gui_manager::get()->add_menu(this);
+        gui_manager::get()->set_menu_visibility(this, true);
     }
 
     void hide()
     {
-        is_visible = false;
+        gui_manager::get()->set_menu_visibility(this, false);
     }
 };

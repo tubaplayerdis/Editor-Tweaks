@@ -4,6 +4,7 @@
 #include <Hooking/Hook.hpp>
 #include <Utils.hpp>
 #include <iostream>
+#include <ranges>
 #include <string>
 
 #include "../TypeReconstruct.h"
@@ -15,6 +16,7 @@
 #define F_GET_THRUST_FORCE_RANGE (BASE + 0x0C41990)
 #define F_GET_STATIC_INFO_THRUSTER_BRICK (BASE + 0x0C1EE00)
 #define F_GET_BRICK_EDITOR_STATIC_INFO (BASE + 0x0BF2710)
+#define F_ADD_PROPERTIES (BASE + 0x0DB66F0)
 
 HOOK(GetMaxBrickSize, F_GET_MAX_BRICK_SIZE, [](SDK::UScalableBrick *This, SDK::FVector* RetVal) -> SDK::FVector*
 {
@@ -48,3 +50,20 @@ HOOK(GetBrickEditorStaticInfo, F_GET_BRICK_EDITOR_STATIC_INFO, [](SDK::ABrickEdi
     StaticInfo->CameraSpeedParams.Step = 0.01f;//5
     return StaticInfo;
 }, SDK::UBrickEditorStaticInfo*(SDK::ABrickEditor*))
+
+HOOK(AddProperties, F_ADD_PROPERTIES, [](SDK::UPropertiesPanelWidget* This, SDK::TArray<SDK::UObject*>* InContainers, SDK::FBrickPropertyReflectionFilter* Filter) -> void
+{
+    if (InContainers)
+    {
+        for (SDK::UObject* objs : *InContainers)
+        {
+            if (!objs || !objs->IsA(SDK::UBrickEditorObject::StaticClass())) continue;
+            std::cout << objs->GetName() << " - " << objs->GetFullName() << "\n";
+
+            if (!Filter) continue;
+
+        }
+    }
+
+    HOOK_CALL_ORIGINAL(AddProperties(), This, InContainers, Filter);
+}, void(SDK::UPropertiesPanelWidget*, SDK::TArray<SDK::UObject*>*, SDK::FBrickPropertyReflectionFilter*))
