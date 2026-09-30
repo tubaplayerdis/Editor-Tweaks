@@ -2,7 +2,9 @@
 
 Brick Rigs Editor Tweaks provides slight mods and tweaks to the Brick Rigs editor for a better overall experience.
 
-## Releasing Soon! (Upcoming Weeks)
+## Camera Speed Modification Added to Brick Rigs offical game!
+
+Due to low intrested, this mod will not be fully completed.
 
 Built using [BR-SDK](https://github.com/tubaplayerdis/BR-SDK) 
 
